@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-primary-orange: #ff5f00;
+  --color-primary-red: #ff3c00;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-[#111827] bg-white scroll-smooth pb-20;
+  }
+}
+
+@layer components {
+  .hero-banner {
+    @apply relative bg-[radial-gradient(circle_at_50%_50%,#fff7f2_0%,#ffffff_100%)] overflow-hidden;
+  }
+
+  .nav-container {
+    @apply bg-white/85 backdrop-blur-xl border-b border-[#e5e7eb];
+  }
+
+  .glass-card {
+    @apply bg-[#f9fafb] border border-[#e5e7eb] rounded-[20px] transition-all duration-400 flex flex-col justify-between hover:border-primary-orange hover:bg-white hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(255,95,0,0.08)];
+  }
+
+  .btn-try-nav {
+    @apply bg-primary-orange text-white px-6 py-2 rounded-full font-extrabold shadow-[0_4px_15px_rgba(255,95,0,0.3)] transition-all cursor-pointer hover:bg-primary-red hover:scale-105;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-br from-primary-orange to-primary-red text-white px-10 py-5 rounded-xl font-extrabold transition-all shadow-[0_10px_25px_rgba(255,95,0,0.25)] flex items-center gap-2.5 cursor-pointer hover:-translate-y-0.5 hover:shadow-[0_15px_30px_rgba(255,95,0,0.4)] hover:contrast-110;
+  }
+
+  .btn-more {
+    @apply text-[0.85rem] font-extrabold text-white bg-[#111827] px-5 py-2.5 rounded-xl flex items-center gap-2 mt-6 transition-all w-fit hover:bg-primary-orange hover:pr-6;
+  }
+
+  .badge {
+    @apply text-primary-orange text-[0.7rem] font-extrabold uppercase tracking-[0.2em] bg-primary-orange/10 px-4 py-1.5 rounded-lg inline-block;
+  }
+
+  .category-icon {
+    @apply w-[52px] h-[52px] flex items-center justify-center bg-white text-primary-orange rounded-xl mb-6 text-[1.4rem] shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-[#e5e7eb];
+  }
+
+  .icon-featured {
+    @apply bg-primary-orange text-white border-none shadow-lg shadow-primary-orange/20;
+  }
+
+  .section-title {
+    @apply relative inline-block pb-2.5;
+  }
+
+  .section-title::after {
+    @apply content-[''] absolute bottom-0 left-0 w-15 h-1 bg-primary-orange rounded-sm;
+  }
+
+  .sticky-footer {
+    @apply fixed bottom-0 left-0 right-0 bg-[#111827] text-white z-50 border-t-2 border-primary-orange shadow-[0_-10px_30px_rgba(0,0,0,0.2)] px-5 py-3;
+  }
+
+  .contact-highlight {
+    @apply bg-gradient-to-r from-[#ff5f00] to-[#ff3c00] px-4 py-1.5 rounded-full font-extrabold shadow-[0_0_15px_rgba(255,95,0,0.4)] flex items-center gap-2;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-pulse-custom {
+  animation: pulse 2s infinite;
+}
