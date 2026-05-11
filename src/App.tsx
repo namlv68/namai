@@ -29,7 +29,7 @@ const categories: Category[] = [
     title: "Phim Hành Động",
     description: "Chuyển động kịch tính, nhịp độ nhanh với góc máy cinematic.",
     icon: <User className="w-6 h-6" />,
-    link: "https://hanhdong.vercel.app/",
+    link: "https://ai.studio/apps/8b6a55ba-d429-4221-9499-1deea434771d?fullscreenApplet=true/",
   },
   {
     title: "Phim Hài",
