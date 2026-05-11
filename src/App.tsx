@@ -41,7 +41,7 @@ const categories: Category[] = [
     title: "Mukbang AI",
     description: "Hình ảnh món ăn siêu thực, mâm đồ ăn hoành tráng gây ấn tượng mạnh.",
     icon: <Utensils className="w-6 h-6" />,
-    link: "https://ai.studio/apps/6275d4e2-0de4-41f1-9323-20bc56371416?fullscreenApplet=true/",
+    link: "https://ai.studio/apps/6275d4e2-0de4-41f1-9323-20bc56371416?fullscreenApplet=true",
     isFeatured: true,
   },
   {
