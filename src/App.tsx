@@ -66,7 +66,7 @@ const categories: Category[] = [
     title: "AI Bán Hàng",
     description: "Video quảng cáo sản phẩm, livestream ảo bùng nổ doanh thu cho doanh nghiệp.",
     icon: <ShoppingBag className="w-6 h-6" />,
-    link: "https://namlv.io.vn",
+    link: "https://ai.studio/apps/c0f9b9f0-1ba0-4a9c-acf3-d00ab3db39b9?fullscreenApplet=true",
     colSpan: "lg:col-span-2",
   },
 ];
