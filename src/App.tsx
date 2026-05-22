@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Zap, 
@@ -31,7 +31,7 @@ const categories: Category[] = [
     title: "Phim Hành Động",
     description: "Chuyển động kịch tính, nhịp độ nhanh với góc máy cinematic.",
     icon: <User className="w-6 h-6" />,
-    link: "https://hanhdong.vercel.app/",
+    link: "https://ai.studio/apps/8b6a55ba-d429-4221-9499-1deea434771d?fullscreenApplet=true",
   },
   {
     title: "Phim Hài",
@@ -43,7 +43,7 @@ const categories: Category[] = [
     title: "Mukbang AI",
     description: "Hình ảnh món ăn siêu thực, mâm đồ ăn hoành tráng gây ấn tượng mạnh.",
     icon: <Utensils className="w-6 h-6" />,
-    link: "https://mukbangv3.vercel.app/",
+    link: "https://ai.studio/apps/b92de6d7-6e17-40c7-9318-e0c62e3812b6?fullscreenApplet=true",
     isFeatured: true,
   },
   {
@@ -68,7 +68,7 @@ const categories: Category[] = [
     title: "AI Bán Hàng",
     description: "Video quảng cáo sản phẩm, livestream ảo bùng nổ doanh thu cho doanh nghiệp.",
     icon: <ShoppingBag className="w-6 h-6" />,
-    link: "https://namlv.io.vn",
+    link: "https://ai.studio/apps/c0f9b9f0-1ba0-4a9c-acf3-d00ab3db39b9?fullscreenApplet=true",
     colSpan: "lg:col-span-2",
   },
 ];
@@ -80,13 +80,64 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  const [loginExpiry, setLoginExpiry] = useState<number | null>(null);
+  const [timeLeft, setTimeLeft] = useState<string>("");
+
+  useEffect(() => {
+    const session = localStorage.getItem("nam_ai_session");
+    if (session) {
+      try {
+        const parsed = JSON.parse(session);
+        if (parsed.expiry > Date.now()) {
+          setLoggedInUser(parsed.username);
+          setLoginExpiry(parsed.expiry);
+        } else {
+          localStorage.removeItem("nam_ai_session");
+        }
+      } catch (e) {}
+    }
+  }, []);
+
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (loggedInUser && loginExpiry) {
+      const updateTime = () => {
+        const now = Date.now();
+        const diff = loginExpiry - now;
+        if (diff <= 0) {
+          handleLogout();
+        } else {
+          const h = Math.floor(diff / (1000 * 60 * 60));
+          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const s = Math.floor((diff % (1000 * 60)) / 1000);
+          setTimeLeft(`${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`);
+        }
+      };
+      updateTime();
+      interval = setInterval(updateTime, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [loggedInUser, loginExpiry]);
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    setLoginExpiry(null);
+    setTimeLeft("");
+    localStorage.removeItem("nam_ai_session");
+  };
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
     e.preventDefault();
-    setTargetLink(link);
-    setIsLoginModalOpen(true);
-    setUsername("");
-    setPassword("");
-    setError("");
+    if (loggedInUser) {
+      window.open(link, "_blank");
+    } else {
+      setTargetLink(link);
+      setIsLoginModalOpen(true);
+      setUsername("");
+      setPassword("");
+      setError("");
+    }
   };
 
   const handleLogin = (e: React.FormEvent) => {
@@ -108,6 +159,11 @@ export default function App() {
     };
 
     if (validUsers[username] && validUsers[username] === password) {
+      const expiry = Date.now() + 24 * 60 * 60 * 1000;
+      setLoggedInUser(username);
+      setLoginExpiry(expiry);
+      localStorage.setItem("nam_ai_session", JSON.stringify({ username, expiry }));
+      
       window.open(targetLink, "_blank");
       setIsLoginModalOpen(false);
     } else {
@@ -213,9 +269,28 @@ export default function App() {
             animate={{ opacity: 1, x: 0 }}
             className="flex gap-4 items-center"
           >
-            <a href="#the-loai" className="btn-try-nav text-[11px] uppercase tracking-widest">
-              DÙNG THỬ NGAY
-            </a>
+            {loggedInUser ? (
+              <div className="flex items-center gap-3 md:gap-4 bg-gray-50 px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-gray-100 shadow-sm">
+                <div className="flex flex-col items-end">
+                  <span className="text-[10px] md:text-xs font-bold text-gray-900 border-b border-gray-200 pb-0.5">
+                    TK: <span className="text-primary-orange">{loggedInUser}</span>
+                  </span>
+                  <span className="text-[9px] md:text-[10px] font-bold text-red-500 mt-0.5 tracking-wider">
+                    ⏱ {timeLeft}
+                  </span>
+                </div>
+                <button 
+                  onClick={handleLogout}
+                  className="text-[10px] md:text-[11px] bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1.5 rounded-full font-bold transition-colors uppercase"
+                >
+                  THOÁT
+                </button>
+              </div>
+            ) : (
+              <a href="#the-loai" className="btn-try-nav text-[11px] uppercase tracking-widest">
+                DÙNG THỬ NGAY
+              </a>
+            )}
           </motion.div>
         </div>
       </nav>
