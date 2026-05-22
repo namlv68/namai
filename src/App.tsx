@@ -23,7 +23,7 @@ interface Category {
   isFeatured?: boolean;
   colSpan?: string;
 }
-
+{
 const categories: Category[] = [
  import React, { useState } from 'react';
 import { User, Video, ShieldAlert } from 'lucide-react'; // Thay thế icon tương ứng của bạn
