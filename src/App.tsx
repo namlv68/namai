@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   Zap, 
   Play, 
@@ -12,7 +13,8 @@ import {
   Facebook, 
   Youtube, 
   PhoneCall,
-  Flame
+  Flame,
+  X
 } from "lucide-react";
 
 interface Category {
@@ -23,11 +25,13 @@ interface Category {
   isFeatured?: boolean;
   colSpan?: string;
 }
- {
+
+const categories: Category[] = [
+  {
     title: "Phim Hành Động",
     description: "Chuyển động kịch tính, nhịp độ nhanh với góc máy cinematic.",
     icon: <User className="w-6 h-6" />,
-    link: "https://ai.studio/apps/8b6a55ba-d429-4221-9499-1deea434771d?fullscreenApplet=true/",
+    link: "https://hanhdong.vercel.app/",
   },
   {
     title: "Phim Hài",
@@ -39,7 +43,7 @@ interface Category {
     title: "Mukbang AI",
     description: "Hình ảnh món ăn siêu thực, mâm đồ ăn hoành tráng gây ấn tượng mạnh.",
     icon: <Utensils className="w-6 h-6" />,
-    link: "https://ai.studio/apps/b92de6d7-6e17-40c7-9318-e0c62e3812b6?fullscreenApplet=true",
+    link: "https://mukbangv3.vercel.app/",
     isFeatured: true,
   },
   {
@@ -58,20 +62,125 @@ interface Category {
     title: "Du Lịch",
     description: "Khám phá vẻ đẹp thế giới qua các góc quay POV độc bản của AI.",
     icon: <MapPin className="w-6 h-6" />,
-    link: "https://dulich-cyan.vercel.app/",
+    link: "https://hainauan-ocva.vercel.app/",
   },
   {
     title: "AI Bán Hàng",
     description: "Video quảng cáo sản phẩm, livestream ảo bùng nổ doanh thu cho doanh nghiệp.",
     icon: <ShoppingBag className="w-6 h-6" />,
-    link: "https://ai.studio/apps/c0f9b9f0-1ba0-4a9c-acf3-d00ab3db39b9?fullscreenApplet=true",
+    link: "https://namlv.io.vn",
     colSpan: "lg:col-span-2",
   },
 ];
 
 export default function App() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [targetLink, setTargetLink] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    e.preventDefault();
+    setTargetLink(link);
+    setIsLoginModalOpen(true);
+    setUsername("");
+    setPassword("");
+    setError("");
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Valid credentials dictionary
+    const validUsers: Record<string, string> = {
+      "0981028794": "6789",
+      "HV1": "123456@",
+      "HV2": "123456",
+      "HV3": "123456",
+      "HV4": "123456",
+      "HV5": "123456",
+      "HV6": "123456",
+      "HV7": "123456",
+      "HV8": "123456",
+      "HV9": "123456",
+      "HV10": "123456"
+    };
+
+    if (validUsers[username] && validUsers[username] === password) {
+      window.open(targetLink, "_blank");
+      setIsLoginModalOpen(false);
+    } else {
+      setError("Thông tin đăng nhập không chính xác!");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      {/* Login Modal */}
+      <AnimatePresence>
+        {isLoginModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+            >
+              <div className="flex justify-between items-center p-6 border-b border-gray-100">
+                <h3 className="text-xl font-bold text-gray-900">Đăng Nhập</h3>
+                <button 
+                  onClick={() => setIsLoginModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <form onSubmit={handleLogin} className="p-6">
+                {error && (
+                  <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg font-medium">
+                    {error}
+                  </div>
+                )}
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">Tên đăng nhập</label>
+                    <input 
+                      type="text" 
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary-orange focus:ring-2 focus:ring-primary-orange/20 outline-none transition-all"
+                      placeholder="Nhập tên đăng nhập"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">Mật khẩu</label>
+                    <input 
+                      type="password" 
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary-orange focus:ring-2 focus:ring-primary-orange/20 outline-none transition-all"
+                      placeholder="Nhập mật khẩu"
+                      required
+                    />
+                  </div>
+                </div>
+                <button 
+                  type="submit" 
+                  className="w-full mt-6 bg-primary-orange hover:bg-primary-red text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-primary-orange/30 hover:shadow-primary-orange/50 hover:-translate-y-0.5"
+                >
+                  Đăng Nhập Tiếp Tục
+                </button>
+                <div className="mt-5 text-center text-sm font-medium text-gray-600">
+                  Liên hệ Admin Nam <a href="tel:0981028794" className="text-primary-orange font-bold hover:underline">0981028794</a> để được cấp tài khoản
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* Header Navigation */}
       <nav className="fixed w-full z-50 nav-container">
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
@@ -202,6 +311,7 @@ export default function App() {
                   rel="noopener noreferrer" 
                   className="btn-more"
                   style={cat.isFeatured ? { background: 'var(--color-primary-orange)' } : {}}
+                  onClick={(e) => handleLinkClick(e, cat.link)}
                 >
                   Xem thêm <ArrowRight className="w-4 h-4 ml-1" />
                 </a>
