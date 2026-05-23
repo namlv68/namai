@@ -53,10 +53,10 @@ const categories: Category[] = [
     link: "https://hainauan.vercel.app/",
   },
   {
-    title: "Sinh tồn",
-    description: "Thước phim thiên nhiên hùng vĩ, timelapse thay đổi bối cảnh kỳ ảo.",
+    title: "Timelap",
+    description: "Thước phim đẹp, timelapse thay đổi bối cảnh kỳ ảo.",
     icon: <Tent className="w-6 h-6" />,
-    link: "https://namlv.io.vn",
+    link: "https://ai.studio/apps/6fc8a53e-8585-4efb-ad00-d95142255dbb?fullscreenApplet=true",
   },
   {
     title: "Du Lịch",
