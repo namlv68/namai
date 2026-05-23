@@ -146,9 +146,9 @@ export default function App() {
     // Valid credentials dictionary
     const validUsers: Record<string, string> = {
       "0981028794": "6789",
-      "HV1": "123456@",
-      "HV2": "123456",
-      "HV3": "123456",
+      "0395080698": "123456",
+      "0389467268": "123456",
+      "0342596096": "123456",
       "HV4": "123456",
       "HV5": "123456",
       "HV6": "123456",
