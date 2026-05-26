@@ -47,10 +47,10 @@ const categories: Category[] = [
     isFeatured: true,
   },
   {
-    title: "Nấu Ăn",
-    description: "Quy trình ẩm thực chuyên nghiệp, ánh sáng bếp ấm cúng và tinh tế.",
+    title: "AI Thời trang",
+    description: "AI Thời trang affilate tối ưu nhất",
     icon: <Flame className="w-6 h-6" />,
-    link: "https://hainauan.vercel.app/",
+    link: "https://ai.studio/apps/a0d2ca7a-afe1-40f0-9a9b-30cdbe1e0679?fullscreenApplet=true",
   },
   {
     title: "Timelap",
