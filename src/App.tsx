@@ -46,6 +46,13 @@ const categories: Category[] = [
     link: "https://ai.studio/apps/b92de6d7-6e17-40c7-9318-e0c62e3812b6?fullscreenApplet=true",
     isFeatured: true,
   },
+    {
+    title: "Mukbang HẢI SẢN",
+    description: "Hình ảnh món ăn siêu thực, mâm đồ ăn hoành tráng gây ấn tượng mạnh.",
+    icon: <Utensils className="w-6 h-6" />,
+    link: "https://ai.studio/apps/f9c93a73-49ae-47da-8c00-b90e7c47fe78?fullscreenApplet=true",
+    isFeatured: true,
+  },
   {
     title: "AI Thời trang",
     description: "AI Thời trang affilate tối ưu nhất",
