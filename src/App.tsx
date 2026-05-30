@@ -62,7 +62,7 @@ const categories: Category[] = [
   {
     title: "XÂY KÊNH HÀI HƯỚC",
     description: "Tạo ra những kịch bản video hài hước xây kênh",
-    icon: <Flame className="w-6 h-6" />,
+    icon: <Utensils className="w-6 h-6" />,
     link: "https://ai.studio/apps/fb2af31e-324a-4325-8ad2-89be72bcd770?fullscreenApplet=true",
   },
   {
