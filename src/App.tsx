@@ -78,6 +78,12 @@ const categories: Category[] = [
     link: "https://ai.studio/apps/c0f9b9f0-1ba0-4a9c-acf3-d00ab3db39b9?fullscreenApplet=true",
     colSpan: "lg:col-span-2",
   },
+    {
+    title: "XÂY KÊNH HÀI HƯỚC",
+    description: "Tạo ra những kịch bản video hài hước xây kênh",
+    icon: <Flame className="w-6 h-6" />,
+    link: "https://ai.studio/apps/fb2af31e-324a-4325-8ad2-89be72bcd770?fullscreenApplet=true",
+  },
 ];
 
 export default function App() {
